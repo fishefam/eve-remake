@@ -68,7 +68,7 @@
 }
 
 @layer utilities {
-  .root-container {
+  .eve-container {
     @apply container mx-auto px-4;
   }
 }

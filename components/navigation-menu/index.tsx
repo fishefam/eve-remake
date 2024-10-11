@@ -13,8 +13,8 @@ export const links = [
 
 export default function NavigationMenu() {
   return (
-    <header className={`fixed inset-x-0 top-0 z-50 py-6 transition-all duration-300`}>
-      <div className="root-container flex items-center justify-between">
+    <header className="sticky left-0 top-0 z-[2] bg-white py-2 transition-all duration-200 dark:bg-gray-900">
+      <div className="eve-container flex items-center justify-between">
         <div className="flex items-center">
           <Link
             className="bg-gradient-to-r from-indigo-500 to-purple-600 bg-clip-text text-2xl font-bold text-transparent dark:from-indigo-400 dark:to-purple-500"

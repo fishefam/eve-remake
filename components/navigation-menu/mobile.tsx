@@ -3,11 +3,12 @@
 import type { SetState } from '@/lib/types'
 
 import { Portal } from '@/components/utils'
+import { useHeaderScroll, useOutsideClick } from '@/hooks/navigation-menu'
 import { isMobile } from '@/lib/utils'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 import Link from 'next/link'
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 
 import { links } from '.'
 import { Button } from '../ui/button'
@@ -28,13 +29,13 @@ export default function MobileNav() {
 }
 
 function NavigationMenu({ isOpen, setIsOpen }: Props) {
-  const container = useOutsideClick({ setIsOpen })
+  const container = useOutsideClick(setIsOpen)
   return (
     <AnimatePresence>
       {isOpen && (
         <motion.div
           animate={{ opacity: 1, y: 0 }}
-          className="fixed inset-0 z-40 h-fit rounded-b-2xl bg-blue-500 pb-12 pt-20 dark:bg-gray-900 md:hidden"
+          className="fixed inset-0 z-[1] h-fit rounded-b-2xl pb-12 pt-20 dark:bg-gray-900 md:hidden"
           exit={{ opacity: 0, y: -20 }}
           initial={{ opacity: 0, y: -20 }}
           ref={container}
@@ -69,22 +70,10 @@ function NavigationMenu({ isOpen, setIsOpen }: Props) {
 }
 
 function Toggler({ isOpen, setIsOpen }: Props) {
+  useHeaderScroll(isOpen)
   return (
     <Button className="md:hidden" onClick={() => setIsOpen((state) => !state)} size="icon" variant="ghost">
       {isOpen ? <X className="size-6" /> : <Menu className="size-6" />}
     </Button>
   )
-}
-
-function useOutsideClick({ setIsOpen }: Pick<Props, 'setIsOpen'>) {
-  const container = useRef<HTMLDivElement>(null)
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      const ref = container.current
-      if (ref && !ref.contains(event.target as Node)) setIsOpen(false)
-    }
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [setIsOpen])
-  return container
 }

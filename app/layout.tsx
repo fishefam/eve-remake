@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
 
+import Footer from '@/components/footer'
 import NavigationMenu from '@/components/navigation-menu'
 import { Inter } from 'next/font/google'
 
@@ -15,7 +16,8 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
     <html lang="en">
       <body className={`${inter.className} antialiased`}>
         <NavigationMenu />
-        {children}
+        <main>{children}</main>
+        <Footer />
       </body>
     </html>
   )
