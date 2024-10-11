@@ -31,6 +31,7 @@ export function useHeaderScroll(isOpen: boolean) {
     if (header && !isOpen && isScrolled) {
       for (const add of classList1) header.classList.add(add)
       for (const remove of classList2) header.classList.remove(remove)
+      if (isDark) header.classList.remove('!bg-white/80')
     }
     if (header && !isOpen && !isScrolled) {
       for (const add of classList2) header.classList.add(add)
