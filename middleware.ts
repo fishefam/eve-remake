@@ -4,7 +4,7 @@ import { type NextRequest } from 'next/server'
 export default function middleware(request: NextRequest) {
   const { country = 'CA' } = request.geo ?? {}
   const { timezones = ['Canada/Eastern'] } = getCountry(country) ?? {}
-  console.log(timezones)
+  console.log(country, timezones)
   // const time = DateTime.now().setZone('America/New_York').toISOTime({ suppressMilliseconds: true })
   // console.log(time)
 }
