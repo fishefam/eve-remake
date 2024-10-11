@@ -75,6 +75,7 @@
     "eslint-plugin-unused-imports": "^4.1.4",
     "geo-tz": "^8.1.2",
     "luxon": "^3.5.0",
+    "node-location-timezone": "^1.1.0",
     "postcss": "^8",
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.8",
