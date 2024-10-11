@@ -16,7 +16,7 @@ export const metadata: Metadata = { title: 'Evenica' }
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   const headers = getHeaders()
   const colorScheme = headers.get('Sec-CH-Prefers-Color-Scheme') as null | Theme
-  const country = headers.get('User-Country')
+  const _country = headers.get('User-Country')
   return (
     <html lang="en" {...(colorScheme ? { className: colorScheme } : {})}>
       <body className={`${inter.className} antialiased`}>
