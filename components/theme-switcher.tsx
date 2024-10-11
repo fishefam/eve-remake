@@ -1,13 +1,9 @@
 'use client'
 
-import type { UseStateReturn } from '@/lib/types'
-
+import { useTheme } from '@/hooks/theme'
 import { Moon, Sun } from 'lucide-react'
-import { useEffect, useState } from 'react'
 
 import { Button } from './ui/button'
-
-type Theme = 'dark' | 'light'
 
 export default function ThemeSwitcher() {
   const [theme, setTheme] = useTheme()
@@ -18,25 +14,4 @@ export default function ThemeSwitcher() {
       <Icon className="size-5" />
     </Button>
   )
-}
-
-function useTheme(): UseStateReturn<Theme | undefined> {
-  const [theme, setTheme] = useState<Theme>()
-  useEffect(() => setTheme(matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'), [])
-  useEffect(() => {
-    if (theme) {
-      let canSet = true
-      const { classList } = document.documentElement
-      if (canSet && theme === 'light') {
-        classList.add('light')
-        classList.remove('dark')
-        canSet = false
-      }
-      if (canSet && theme === 'dark') {
-        classList.add('dark')
-        classList.remove('light')
-      }
-    }
-  }, [theme])
-  return [theme, setTheme]
 }

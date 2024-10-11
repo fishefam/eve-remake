@@ -16,26 +16,28 @@ export function useOutsideClick(setIsOpen: SetState<boolean>) {
   return container
 }
 
-export function useHeaderScroll(isOpen: boolean) {
-  const [isScrolled, setIsScrolled] = useState(false)
+export function useHeader(_: boolean) {
+  const [y, setY] = useState(-10000)
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(scrollY > 50)
+    const isInit = y === -10000
+    const handleScroll = () => setY(scrollY)
+    const header = select('header')
+    const className = 'sticky top-0 z-[2] transition-all duration-200 '
+    const className1 = 'bg-white/70 dark:bg-gray-900/70 backdrop-blur shadow-md py-2'
+    const className2 = 'bg-transparent py-6'
     addEventListener('scroll', handleScroll)
+    if (isInit)
+      setY(() => {
+        const isScrolledDown = scrollY > 50
+        if (header && isScrolledDown) header.className = className + className1
+        if (header && !isScrolledDown) header.className = className + className2
+        return scrollY
+      })
+    if (!isInit) {
+      const isScrolledDown = y > 50
+      if (header && isScrolledDown) header.className = className + className1
+      if (header && !isScrolledDown) header.className = className + className2
+    }
     return () => removeEventListener('scroll', handleScroll)
-  }, [])
-  useEffect(() => {
-    const header = select<HTMLElement>('header')
-    const isDark = document.documentElement.classList.contains('dark')
-    const classList1 = [isDark ? '!dark:bg-gray-900/80' : '!bg-white/80', 'backdrop-blur', 'shadow-md']
-    const classList2 = ['!bg-transparent', '!py-6']
-    if (header && !isOpen && isScrolled) {
-      for (const add of classList1) header.classList.add(add)
-      for (const remove of classList2) header.classList.remove(remove)
-      if (isDark) header.classList.remove('!bg-white/80')
-    }
-    if (header && !isOpen && !isScrolled) {
-      for (const add of classList2) header.classList.add(add)
-      for (const remove of classList1) header.classList.remove(remove)
-    }
-  }, [isOpen, isScrolled])
+  }, [y])
 }

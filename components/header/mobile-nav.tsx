@@ -3,15 +3,15 @@
 import type { SetState } from '@/lib/types'
 
 import { Portal } from '@/components/utils'
-import { useHeaderScroll, useOutsideClick } from '@/hooks/navigation-menu'
+import { useHeader, useOutsideClick } from '@/hooks/navigation-menu'
 import { isMobile } from '@/lib/utils'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 import Link from 'next/link'
 import { useState } from 'react'
 
-import { links } from '.'
 import { Button } from '../ui/button'
+import { links } from './nav'
 
 type Props = { isOpen: boolean; setIsOpen: SetState<boolean> }
 
@@ -70,7 +70,7 @@ function NavigationMenu({ isOpen, setIsOpen }: Props) {
 }
 
 function Toggler({ isOpen, setIsOpen }: Props) {
-  useHeaderScroll(isOpen)
+  useHeader(isOpen)
   return (
     <Button className="md:hidden" onClick={() => setIsOpen((state) => !state)} size="icon" variant="ghost">
       {isOpen ? <X className="size-6" /> : <Menu className="size-6" />}

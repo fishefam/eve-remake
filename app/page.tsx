@@ -1,3 +1,12 @@
+import type { ResolvingMetadata } from 'next/types'
+
+import { createTitle } from '@/lib/utils'
+
+export async function generateMetadata(_: { params: object }, parent: ResolvingMetadata) {
+  const metadata = await parent
+  return { title: createTitle('Home', metadata) }
+}
+
 export default function Home() {
   return (
     <>
