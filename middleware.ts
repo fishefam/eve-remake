@@ -1,12 +1,12 @@
-import { DateTime } from 'luxon'
+import { getCountry } from 'countries-and-timezones'
 import { type NextRequest } from 'next/server'
 
 export default function middleware(request: NextRequest) {
-  const latitude = parseFloat(request.geo?.latitude ?? '0')
-  const longitude = parseFloat(request.geo?.longitude ?? '0')
-  // const [tz] = find(latitude, longitude)
-  const time = DateTime.now().setZone('America/New_York').toISOTime({ suppressMilliseconds: true })
-  console.log(time)
+  const { country = 'CA' } = request.geo ?? {}
+  const { timezones = ['Canada/Eastern'] } = getCountry(country) ?? {}
+  console.log(timezones)
+  // const time = DateTime.now().setZone('America/New_York').toISOTime({ suppressMilliseconds: true })
+  // console.log(time)
 }
 
 export const config = {
