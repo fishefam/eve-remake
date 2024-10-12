@@ -58,7 +58,7 @@ export default function Footer() {
           ))}
           <div>
             <h3 className="mb-4 text-lg font-semibold">Connect</h3>
-            <div className="flex space-x-4">
+            <div className="flex flex-wrap space-x-4 [row-gap:16px]">
               {connects.map(({ href, Icon }) => (
                 <Link className="text-white transition-colors hover:text-indigo-400" href={href} key={href}>
                   <Icon />

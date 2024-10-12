@@ -18,6 +18,12 @@
         "args": "after-used",
         "argsIgnorePattern": "^_"
       }
+    ],
+    "tailwindcss/no-custom-classname": [
+      "error",
+      {
+        "whitelist": ["ignore-eve-container"]
+      }
     ]
   },
   "parserOptions": {

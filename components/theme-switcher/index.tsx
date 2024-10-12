@@ -10,12 +10,10 @@ import { setThemeCookie } from './actions'
 
 export default function ThemeSwitcher({ baseTheme }: { baseTheme: Theme }) {
   const [theme, setTheme] = useTheme(baseTheme)
-  const handleTheme = () =>
-    setTheme((state) => {
-      const _theme = state === 'dark' ? 'light' : 'dark'
-      setThemeCookie(_theme)
-      return _theme
-    })
+  const handleTheme = () => {
+    setThemeCookie(theme === 'dark' ? 'light' : 'dark')
+    setTheme((state) => (state === 'dark' ? 'light' : 'dark'))
+  }
   const Icon = theme === 'dark' ? Moon : Sun
   return (
     <Button onClick={handleTheme} size="icon" variant="ghost">

@@ -3,6 +3,7 @@ import type { ReactNode } from 'react'
 
 import Footer from '@/components/footer'
 import Header from '@/components/header'
+import ScrollToTop from '@/components/scroll-to-top'
 import { getBaseTheme } from '@/lib/utils'
 import { Inter } from 'next/font/google'
 import { cookies as getCookies, headers as getHeaders } from 'next/headers'
@@ -21,10 +22,9 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
     <html className={baseTheme} lang="en">
       <body className={`${inter.className} antialiased`}>
         <Header baseTheme={baseTheme} />
-        <main className="my-20">
-          <div className="eve-container">{children}</div>
-        </main>
+        <main className="mb-56 mt-20">{children}</main>
         <Footer />
+        <ScrollToTop />
       </body>
     </html>
   )
