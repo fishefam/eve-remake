@@ -7,12 +7,7 @@ import { useEffect, useState } from 'react'
 import { Button } from './ui/button'
 
 export default function ScrollToTop() {
-  const [showScrollTop, setShowScrollTop] = useState(false)
-  useEffect(() => {
-    const handleScrollToTop = () => setShowScrollTop(scrollY > 1000)
-    addEventListener('scroll', handleScrollToTop)
-    return () => removeEventListener('scroll', handleScrollToTop)
-  }, [])
+  const showScrollTop = useScrollToTop()
   return (
     <AnimatePresence>
       {showScrollTop && (
@@ -24,7 +19,7 @@ export default function ScrollToTop() {
           transition={{ duration: 0.3 }}
         >
           <Button
-            className="group rounded border-none bg-indigo-600 p-3 text-white shadow-lg transition-all duration-300 hover:bg-indigo-700 hover:shadow-xl dark:bg-indigo-500 dark:hover:bg-indigo-600"
+            className="group rounded border-none bg-indigo-600 p-3 text-white shadow-lg transition-all duration-300 hover:bg-indigo-700 hover:text-white hover:shadow-xl dark:bg-indigo-500 dark:hover:bg-indigo-600"
             onClick={scrollToTop}
             size="icon"
             variant="outline"
@@ -36,6 +31,16 @@ export default function ScrollToTop() {
       )}
     </AnimatePresence>
   )
+}
+
+function useScrollToTop() {
+  const [showScrollTop, setShowScrollTop] = useState(false)
+  useEffect(() => {
+    const handleScrollToTop = () => setShowScrollTop(scrollY > 1000)
+    addEventListener('scroll', handleScrollToTop)
+    return () => removeEventListener('scroll', handleScrollToTop)
+  }, [])
+  return showScrollTop
 }
 
 function scrollToTop() {

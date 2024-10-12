@@ -4,12 +4,14 @@ import Link from 'next/link'
 
 import ThemeSwitcher from '../theme-switcher'
 import { Button } from '../ui/button'
+import MainNav from './main-nav'
 import MobileNav from './mobile-nav'
 
 export const links = [
-  { href: 'solutions', label: 'Solutions' },
   { href: 'about', label: 'About' },
+  { href: 'solutions', label: 'Solutions' },
   { href: 'case-studies', label: 'Case Studies' },
+  { href: 'industries', label: 'Industries' },
   { href: 'resources', label: 'Resources' },
 ] as const
 
@@ -24,17 +26,7 @@ export default function Nav({ baseTheme }: { baseTheme: Theme }) {
           Evenica
         </Link>
       </div>
-      <nav className="hidden md:block">
-        <ul className="flex space-x-6 text-gray-700 dark:text-gray-300">
-          {links.map(({ href, label }) => (
-            <li key={label}>
-              <Link className="transition-colors hover:text-indigo-600 dark:hover:text-indigo-400" href={href}>
-                {label}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </nav>
+      <MainNav />
       <div className="flex items-center space-x-4">
         <Button
           asChild

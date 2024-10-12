@@ -3,6 +3,7 @@ import { ChevronDownIcon } from '@radix-ui/react-icons'
 import * as NavigationMenuPrimitive from '@radix-ui/react-navigation-menu'
 import { cva } from 'class-variance-authority'
 import * as React from 'react'
+import { ConditionalRender } from '../utils'
 
 const NavigationMenu = React.forwardRef<
   React.ElementRef<typeof NavigationMenuPrimitive.Root>,
@@ -39,18 +40,20 @@ const navigationMenuTriggerStyle = cva(
 
 const NavigationMenuTrigger = React.forwardRef<
   React.ElementRef<typeof NavigationMenuPrimitive.Trigger>,
-  React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Trigger>
->(({ children, className, ...props }, ref) => (
+  { withIcon?: boolean } & React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Trigger>
+>(({ children, className, withIcon, ...props }, ref) => (
   <NavigationMenuPrimitive.Trigger
     className={cn(navigationMenuTriggerStyle(), 'group', className)}
     ref={ref}
     {...props}
   >
     {children}{' '}
-    <ChevronDownIcon
-      aria-hidden="true"
-      className="relative top-px ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
-    />
+    <ConditionalRender show={!!withIcon}>
+      <ChevronDownIcon
+        aria-hidden="true"
+        className="relative top-px ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
+      />
+    </ConditionalRender>
   </NavigationMenuPrimitive.Trigger>
 ))
 NavigationMenuTrigger.displayName = NavigationMenuPrimitive.Trigger.displayName

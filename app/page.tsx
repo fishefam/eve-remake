@@ -1,10 +1,13 @@
 import type { ResolvingMetadata } from 'next/types'
 
+import Acknowledgement from '@/components/acknowledgement'
+import CaseStudy from '@/components/case-study'
 import ClientCarousel from '@/components/client-carousel'
+import Intro from '@/components/intro'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { MainContainer } from '@/components/utils'
 import { createTitle } from '@/lib/utils'
-import { ArrowRight, CheckCircle, ChevronRight } from 'lucide-react'
+import { ArrowRight, CheckCircle } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -15,40 +18,31 @@ export async function generateMetadata(_: object, parent: ResolvingMetadata) {
 
 export default function Home() {
   return (
-    <div className="[&>*:not(.ignore-eve-container)]:eve-container space-y-40">
-      <Intro />
+    <MainContainer>
+      <Intro
+        description="Innovative commerce experiences start with Evenica. Trust one of the longest standing and most experienced commerce solution providers within the Microsoft channel to elevate your brand."
+        href="about"
+        title={
+          <>
+            Commerce Exists Where
+            <br />
+            Transaction Meets Interaction
+          </>
+        }
+      />
       <MicrosoftParter />
       <ClientCarousel />
       <D365Commerce />
-      <CaseStudy />
+      <CaseStudy
+        alt="Raider Image"
+        description="Discover how The Raider Image is using Evenica&#039;s ePlatform and eIntegrate to create a connected commerce solution with seamless integration capabilities."
+        href="case_studies/the-raider-image-case-study"
+        image="/RaiderImage-Official-PMS.png"
+        title="Kicking Off an Integrated E-Commerce Experience for The Raider Image"
+      />
       <Acknowledgement />
       <Testimonial />
-    </div>
-  )
-}
-
-function Intro() {
-  return (
-    <section className="text-center">
-      <h1 className="mb-6 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-4xl font-bold text-transparent dark:from-indigo-400 dark:to-purple-400 md:text-6xl">
-        Commerce Exists Where
-        <br />
-        Transaction Meets Interaction
-      </h1>
-      <p className="mx-auto mb-8 max-w-2xl text-xl text-gray-700 dark:text-gray-300">
-        Innovative commerce experiences start with Evenica. Trust one of the longest standing and most experienced
-        commerce solution providers within the Microsoft channel to elevate your brand.
-      </p>
-      <Button
-        asChild
-        className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white transition-colors hover:from-indigo-600 hover:to-purple-700"
-        size="lg"
-      >
-        <Link href="about">
-          Learn More <ArrowRight className="ml-2 size-4" />
-        </Link>
-      </Button>
-    </section>
+    </MainContainer>
   )
 }
 
@@ -140,83 +134,6 @@ function D365Commerce() {
           </Button>
         </div>
       </div>
-    </section>
-  )
-}
-
-function CaseStudy() {
-  return (
-    <section className="mb-20">
-      <Card className="overflow-hidden dark:bg-gray-800">
-        <CardHeader className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white dark:from-indigo-600 dark:to-purple-700">
-          <CardTitle className="text-2xl font-bold">Featured Case Study</CardTitle>
-        </CardHeader>
-        <CardContent className="flex flex-col items-center gap-6 p-6 md:flex-row">
-          <Image
-            alt="Raider Image"
-            className="size-32 rounded-full border-4 border-indigo-500 object-contain p-2 dark:border-indigo-400 dark:invert"
-            height={180}
-            src="/RaiderImage-Official-PMS.png"
-            width={180}
-          />
-          <div>
-            <h3 className="mb-2 text-xl font-semibold text-gray-800 dark:text-white">
-              Kicking Off an Integrated E-Commerce Experience for The Raider Image
-            </h3>
-            <p className="mb-4 text-gray-700 dark:text-gray-300">
-              Discover how The Raider Image is using Evenica&#039;s ePlatform and eIntegrate to create a connected
-              commerce solution with seamless integration capabilities.
-            </p>
-            <Button
-              asChild
-              className="border-none bg-gradient-to-r from-indigo-500 to-purple-600 text-white hover:from-indigo-600 hover:to-purple-700"
-              variant="outline"
-            >
-              <Link href="case_studies/the-raider-image-case-study/">
-                Read More <ChevronRight className="ml-2 size-4" />
-              </Link>
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
-    </section>
-  )
-}
-
-function Acknowledgement() {
-  const items = [
-    {
-      alt: 'Microsoft Partner',
-      height: 553,
-      img: '/Finalist-Logo.png',
-      text: 'Evenica is honoured to be named a finalist for the Dynamics 365 Commerce 2022 Microsoft Partner of the Year Award. This award recognizes partners that excel at providing innovative and unique customer solutions centered on Microsoft Dynamics 365 Commerce.',
-      title: 'Partner of the Year Finalist',
-      width: 1321,
-    },
-    {
-      alt: 'Deloitte Fast 50',
-      height: 515,
-      img: '/Deloitte.png',
-      text: 'Evenica was presented the Deloitte Technology Fast 50TM program award in 2020 for our rapid revenue growth, entrepreneurial spirit and bold innovation. The program recognizes technology companies with the highest revenue-growth percentage over the past four years. Evenica earned this recognition with 420% revenue growth from 2016 and 2019.',
-      title: 'Recognized For Our Rapid Growth',
-      width: 1590,
-    },
-  ] as const
-  return (
-    <section className="mb-20 grid gap-12 md:grid-cols-2">
-      {items.map(({ alt, height, img, text, title, width }) => (
-        <div key={title}>
-          <h2 className="mb-4 text-2xl font-bold text-gray-800 dark:text-white">{title}</h2>
-          <p className="mb-4 text-gray-700 dark:text-gray-300">{text}</p>
-          <Image
-            alt={alt}
-            className="w-2/3 rounded bg-white object-cover shadow"
-            height={height}
-            src={img}
-            width={width}
-          />
-        </div>
-      ))}
     </section>
   )
 }
