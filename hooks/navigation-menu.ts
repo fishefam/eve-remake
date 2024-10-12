@@ -23,7 +23,7 @@ export function useHeader() {
     const handleScroll = () => setY(scrollY)
     const header = select('header')!
     const className = 'sticky top-0 z-[2] transition-all duration-200 '
-    const className1 = 'bg-white/70 dark:bg-gray-900/70 backdrop-blur shadow-md py-2'
+    const className1 = 'bg-white/80 dark:bg-gray-900/80 backdrop-blur shadow-md py-2'
     const className2 = 'bg-transparent py-6'
     addEventListener('scroll', handleScroll)
     if (!isInit && y > 50) header.className = className + className1

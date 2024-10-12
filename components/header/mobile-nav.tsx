@@ -70,7 +70,6 @@ function NavigationMenu({ isOpen, setIsOpen }: Props) {
 }
 
 function Toggler({ isOpen, setIsOpen }: Props) {
-  // useHeader(isOpen)
   return (
     <Button className="md:hidden" onClick={() => setIsOpen((state) => !state)} size="icon" variant="ghost">
       {isOpen ? <X className="size-6" /> : <Menu className="size-6" />}
