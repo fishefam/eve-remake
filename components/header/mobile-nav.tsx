@@ -3,7 +3,7 @@
 import type { SetState } from '@/lib/types'
 
 import { Portal } from '@/components/utils'
-import { useHeader, useOutsideClick } from '@/hooks/navigation-menu'
+import { useOutsideClick } from '@/hooks/navigation-menu'
 import { isMobile } from '@/lib/utils'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
@@ -70,7 +70,7 @@ function NavigationMenu({ isOpen, setIsOpen }: Props) {
 }
 
 function Toggler({ isOpen, setIsOpen }: Props) {
-  useHeader(isOpen)
+  // useHeader(isOpen)
   return (
     <Button className="md:hidden" onClick={() => setIsOpen((state) => !state)} size="icon" variant="ghost">
       {isOpen ? <X className="size-6" /> : <Menu className="size-6" />}

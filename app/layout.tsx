@@ -1,11 +1,11 @@
-import type { Theme } from '@/hooks/theme'
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
 
 import Footer from '@/components/footer'
 import Header from '@/components/header'
+import { getBaseTheme } from '@/lib/utils'
 import { Inter } from 'next/font/google'
-import { headers as getHeaders } from 'next/headers'
+import { cookies as getCookies, headers as getHeaders } from 'next/headers'
 
 import './globals.css'
 
@@ -15,14 +15,14 @@ export const metadata: Metadata = { title: 'Evenica' }
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   const headers = getHeaders()
-  const colorScheme = headers.get('Sec-CH-Prefers-Color-Scheme') as null | Theme
-  const _country = headers.get('User-Country')
+  const cookies = getCookies()
+  const baseTheme = getBaseTheme(headers, cookies)
   return (
-    <html lang="en" {...(colorScheme ? { className: colorScheme } : {})}>
+    <html className={baseTheme} lang="en">
       <body className={`${inter.className} antialiased`}>
-        <Header />
-        <main>
-          <div className="eve-container flex items-center justify-between">{children}</div>
+        <Header baseTheme={baseTheme} />
+        <main className="my-20">
+          <div className="eve-container">{children}</div>
         </main>
         <Footer />
       </body>

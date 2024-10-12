@@ -1,5 +1,5 @@
 const svgProps = {
-  className: 'size-6 fill-gray-700 transition-colors hover:fill-gray-900 dark:fill-white hover:dark:fill-gray-400',
+  className: 'size-6 fill-gray-700 transition-colors fill-white hover:fill-gray-400',
   viewBox: '0 0 24 24',
 }
 

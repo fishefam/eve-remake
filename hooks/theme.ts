@@ -1,27 +1,18 @@
 import type { UseStateReturn } from '@/lib/types'
 
-import { isDark } from '@/lib/utils'
 import { useEffect, useState } from 'react'
 
 export type Theme = 'dark' | 'light'
 
-export function useTheme(): UseStateReturn<Theme | undefined> {
-  const [theme, setTheme] = useState<Theme>()
-  useEffect(() => setTheme(isDark() ? 'dark' : 'light'), [])
+export function useTheme(baseTheme: Theme): UseStateReturn<Theme> {
+  const [theme, setTheme] = useState(baseTheme)
   useEffect(() => {
-    if (theme) {
-      let canSet = true
-      const { classList } = document.documentElement
-      if (canSet && theme === 'light') {
-        classList.add('light')
-        classList.remove('dark')
-        canSet = false
-      }
-      if (canSet && theme === 'dark') {
-        classList.add('dark')
-        classList.remove('light')
-      }
+    let flag = true
+    if (theme === 'light') {
+      document.documentElement.className = 'light'
+      flag = false
     }
+    if (flag && theme === 'dark') document.documentElement.className = 'dark'
   }, [theme])
   return [theme, setTheme]
 }

@@ -1,3 +1,5 @@
+import type { Theme } from '@/hooks/theme'
+
 import Link from 'next/link'
 
 import ThemeSwitcher from '../theme-switcher'
@@ -11,7 +13,7 @@ export const links = [
   { href: 'resources', label: 'Resources' },
 ] as const
 
-export default function Nav() {
+export default function Nav({ baseTheme }: { baseTheme: Theme }) {
   return (
     <div className="eve-container flex items-center justify-between">
       <div className="flex items-center">
@@ -40,7 +42,7 @@ export default function Nav() {
         >
           <Link href={'/contact'}>Contact</Link>
         </Button>
-        <ThemeSwitcher />
+        <ThemeSwitcher baseTheme={baseTheme} />
         <MobileNav />
       </div>
     </div>

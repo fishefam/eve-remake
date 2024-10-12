@@ -1,13 +1,14 @@
-import { type NextRequest } from 'next/server'
+import { DateTime } from 'luxon'
+import { type NextRequest, NextResponse } from 'next/server'
+import timezoneLookup from 'tz-lookup'
 
 export default async function middleware(request: NextRequest) {
   const { latitude = '43.351330', longitude = '-79.799380' } = request.geo ?? {}
-  const response = await fetch(
-    `https://api.timezonedb.com/v2.1/get-time-zone?key=${process.env.TIMEZONEDB}&format=json&by=position&lat=${parseFloat(latitude)}&lng=${parseFloat(longitude)}`,
-  )
-  const { formatted } = (await response.text()) as unknown as { formatted: string }
-  const currentHour = new Date(formatted).getHours()
-  console.log('current hour: ', currentHour)
+  const timezone = timezoneLookup(parseFloat(latitude), parseFloat(longitude))
+  const { hour } = DateTime.now().setZone(timezone)
+  const response = NextResponse.next()
+  response.headers.set('Hour', hour + '')
+  return response
 }
 
 export const config = {

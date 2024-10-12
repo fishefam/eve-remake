@@ -39,7 +39,7 @@ const connects = [
 
 export default function Footer() {
   return (
-    <footer className="py-12 text-gray-700 dark:bg-gray-900 dark:text-white">
+    <footer className="bg-gray-800 py-12 text-white dark:bg-gray-900">
       <div className="eve-container">
         <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
           {categories.map(({ category, links }) => (
