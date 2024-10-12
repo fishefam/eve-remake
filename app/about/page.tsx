@@ -1,3 +1,5 @@
+import type { ResolvingMetadata } from 'next'
+
 import Acknowledgement from '@/components/acknowledgement'
 import ClientCarousel from '@/components/client-carousel'
 import Intro from '@/components/intro'
@@ -5,9 +7,15 @@ import Story from '@/components/story'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { MainContainer } from '@/components/utils'
+import { createTitle } from '@/lib/utils'
 import { ArrowRight } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
+
+export async function generateMetadata(_: object, parent: ResolvingMetadata) {
+  const metadata = await parent
+  return { title: createTitle('About', metadata) }
+}
 
 export default function About() {
   return (
@@ -19,9 +27,11 @@ export default function About() {
       />
       <Story
         classNames={{ image: 'lg:object-[0_-150px]' }}
-        image="/Evenica_About-Us.png"
+        image="/images/about.png"
+        imagePriority
+        quality={10}
         texts={[
-          'Evenica was founded in 2014 by Mike Bolton and Sadek Ali after two decades of technology and e-commerce experience led to an undeniable quench for innovation. They wanted to create a company that deliveredexceptional customer service and was tenacious enough to solve even the most complex e-commerce challenges. Above all, Mike and Sadek wanted to create a work environment that allowed employees to have freedom ofexpression and the courage to seek out unique e-commerce solutions.',
+          'Evenica was founded in 2014 by Mike Bolton and Sadek Ali after two decades of technology and e-commerce experience led to an undeniable quench for innovation. They wanted to create a company that delivered exceptional customer service and was tenacious enough to solve even the most complex e-commerce challenges. Above all, Mike and Sadek wanted to create a work environment that allowed employees to have freedom of expression and the courage to seek out unique e-commerce solutions.',
           'Evenica relies on over 20 years of experience and a perfected methodology to provide direct and quick e-commerce implementation. We’re able to give our customers ‘white glove’ concierge services to ensure business value is optimally achieved. Our culture of earnest is a shared success with our customers, and we employ staff that are forward thinkers who actively seek creative solutions. We’re able to offer high value services through honed efficiencies, deep experience and our own portfolio of respected software.',
         ]}
         title="Our Story"
@@ -44,7 +54,7 @@ function MicrosoftAlliance() {
               alt="Microsoft Partner"
               className="object-cover object-center"
               height={518}
-              src="/MSFT-Logo.png"
+              src="/images/ms-partner.png"
               width={1018}
             />
           </div>

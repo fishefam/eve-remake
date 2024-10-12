@@ -6,20 +6,20 @@ import Image from 'next/image'
 import { Carousel, CarouselContent, CarouselItem } from './ui/carousel'
 
 const logos = [
-  'Alcanna.png',
-  'Andrew-Peller-Limited.png',
-  'Bedrock-Manufacturing.png',
-  'Filson.png',
-  'Fire-Flower.png',
-  'Henrys.png',
-  'Horizon-Beverage-Group.png',
-  'Kai-USA-Ltd.png',
-  'Nova-Cannabis.png',
-  'PRS-Guitars.png',
-  'Paul-Mitchell.png',
-  'Shinola.png',
-  'Steiner.png',
-  'Youngs.png',
+  'alcanna.png',
+  'andrew-peller-limited.png',
+  'bedrock-manufacturing.png',
+  'filson.png',
+  'fire-flower.png',
+  'henrys.png',
+  'horizon-beverage-group.png',
+  'kai-usa-ltd.png',
+  'nova-cannabis.png',
+  'prs-guitars.png',
+  'paul-mitchell.png',
+  'shinola.png',
+  'steiner.png',
+  'youngs.png',
 ]
 
 export default function ClientCarousel() {
@@ -49,7 +49,7 @@ export default function ClientCarousel() {
                 alt={file.replace(/-/g, ' ').replace(/\.\w+$/, '')}
                 className="select-none dark:invert"
                 height={110}
-                src={`/clients/${file}`}
+                src={`/images/clients/${file}`}
                 width={110}
               />
             </CarouselItem>

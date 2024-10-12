@@ -1,5 +1,6 @@
 import Link from 'next/link'
 
+import ClientLink from './client-link'
 import { Facebook, Instagram, LinkedIn, Pinterest, X } from './icons'
 
 const categories = [
@@ -48,9 +49,9 @@ export default function Footer() {
               <ul className="space-y-2">
                 {links.map(({ href, label }, i) => (
                   <li key={i}>
-                    <Link className="transition-colors hover:text-indigo-400" href={href}>
+                    <ClientLink className="transition-colors hover:text-indigo-400" href={href}>
                       {label}
-                    </Link>
+                    </ClientLink>
                   </li>
                 ))}
               </ul>

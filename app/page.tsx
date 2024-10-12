@@ -37,7 +37,7 @@ export default function Home() {
         alt="Raider Image"
         description="Discover how The Raider Image is using Evenica&#039;s ePlatform and eIntegrate to create a connected commerce solution with seamless integration capabilities."
         href="case_studies/the-raider-image-case-study"
-        image="/RaiderImage-Official-PMS.png"
+        image="/images/the-raider-image.png"
         title="Kicking Off an Integrated E-Commerce Experience for The Raider Image"
       />
       <Acknowledgement />
@@ -60,6 +60,12 @@ function MicrosoftParter() {
 }
 
 function D365Commerce() {
+  const components = [
+    'Product Information Enrichment',
+    'Product and Service Eligibility',
+    'Advanced Search Capabilities',
+  ]
+  const features = ['Unified Commerce', 'Product Information Management', 'Advanced Search']
   return (
     <section className="mb-20">
       <h2 className="mb-20 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-center text-3xl font-bold text-transparent dark:from-indigo-400 dark:to-purple-400">
@@ -68,16 +74,14 @@ function D365Commerce() {
       <div className="grid gap-20 md:grid-cols-2">
         <div className="mx-auto space-y-8 rounded-lg bg-[#EAEAEA] p-3 shadow-lg sm:p-8">
           <div className="grid grid-cols-3 gap-4">
-            {['Product Information Enrichment', 'Product and Service Eligibility', 'Advanced Search Capabilities'].map(
-              (title) => (
-                <div
-                  className="overflow-hidden rounded-lg bg-blue-500 px-1 py-4 text-center text-xs font-semibold text-white shadow-md transition-shadow duration-300 hover:shadow-lg md:p-4 lg:text-sm"
-                  key={title}
-                >
-                  {title}
-                </div>
-              ),
-            )}
+            {components.map((title) => (
+              <div
+                className="overflow-hidden rounded-lg bg-blue-500 px-1 py-4 text-center text-xs font-semibold text-white shadow-md transition-shadow duration-300 hover:shadow-lg md:p-4 lg:text-sm"
+                key={title}
+              >
+                {title}
+              </div>
+            ))}
           </div>
           <div className="flex items-center justify-center space-x-4">
             <div className="h-px grow bg-gray-300"></div>
@@ -97,10 +101,11 @@ function D365Commerce() {
               <div className="flex size-12 items-center justify-center">
                 <Image
                   alt="Dynamics 365 Commerce"
-                  className="min-w-12"
-                  height={48}
-                  src="http://dynamicssolution.com/wp-content/uploads/2020/08/Commerce.svg"
-                  width={48}
+                  className="h-auto min-w-12"
+                  height={0}
+                  sizes="48px"
+                  src="svgs/commerce-icon.svg"
+                  width={0}
                 />
               </div>
               <h2 className="text-2xl font-bold">Microsoft Dynamics 365 Commerce</h2>
@@ -116,7 +121,7 @@ function D365Commerce() {
             public sector, healthcare and more.
           </p>
           <ul className="mb-6 space-y-2">
-            {['Unified Commerce', 'Product Information Management', 'Advanced Search'].map((feature) => (
+            {features.map((feature) => (
               <li className="flex items-center" key={feature}>
                 <CheckCircle className="mr-2 text-indigo-500 dark:text-indigo-400" />
                 <span className="text-gray-700 dark:text-gray-300">{feature}</span>

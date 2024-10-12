@@ -4,11 +4,15 @@ import Image from 'next/image'
 export default function Story({
   classNames,
   image,
+  imagePriority,
+  quality,
   texts,
   title,
 }: {
   classNames?: { image?: string }
   image: string
+  imagePriority?: boolean
+  quality?: number
   texts: string[]
   title: string
 }) {
@@ -19,6 +23,8 @@ export default function Story({
           alt="Evenica"
           className={cn('h-full bg-transparent object-cover', classNames?.image)}
           height={1080}
+          priority={imagePriority}
+          quality={quality}
           src={image}
           width={1920}
         />

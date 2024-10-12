@@ -29,8 +29,42 @@ export function isDark() {
 
 export function getBaseTheme(headers: ReadonlyHeaders, cookies: ReadonlyRequestCookies) {
   const { value: cookieTheme } = (cookies.get('theme') as { value: Theme } | undefined) ?? {}
-  const clientHintTheme = headers.get('Sec-CH-Prefers-Color-Scheme') as null | Theme
-  const hour = parseInt(headers.get('Hour') ?? '0')
+  const clientHintTheme = getHeader<Theme>('Sec-CH-Prefers-Color-Scheme', headers)
+  const hour = parseInt(getHeader('Hour', headers) ?? '0')
   const hourTheme = hour < 18 ? 'light' : 'dark'
   return cookieTheme ?? clientHintTheme ?? hourTheme
+}
+
+export async function getBaseThemeAsync() {
+  const { cookies: getCookies, headers: getHeaders } = await import('next/headers')
+  const headers = getHeaders()
+  const cookies = getCookies()
+  const { value: cookieTheme } = (cookies.get('theme') as { value: Theme } | undefined) ?? {}
+  const clientHintTheme = getHeader<Theme>('Sec-CH-Prefers-Color-Scheme', headers)
+  const hour = parseInt(getHeader('Hour', headers) ?? '0')
+  const hourTheme = hour < 18 ? 'light' : 'dark'
+  return cookieTheme ?? clientHintTheme ?? hourTheme
+}
+
+export function getHeader<T extends object | string = string>(
+  key: string,
+  headers: ReadonlyHeaders,
+  parseJSON = false,
+) {
+  const value = headers.get(key)
+  if (parseJSON && value) return JSON.parse(value) as T
+  if (value) return value as T
+  return null
+}
+
+export async function getHeaderAsync<T extends object | string = string>(key: string, parseJSON = false) {
+  const { headers: getHeaders } = await import('next/headers')
+  const value = getHeaders().get(key)
+  if (parseJSON && value) return JSON.parse(value) as T
+  if (value) return value as T
+  return null
+}
+
+export function isSamePath(href1?: null | string, href2?: null | string) {
+  return href1?.replace(/^\//, '') === href2?.replace(/^\//, '')
 }

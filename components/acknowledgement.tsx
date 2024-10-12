@@ -5,7 +5,7 @@ export default function Acknowledgement() {
     {
       alt: 'Microsoft Partner',
       height: 553,
-      img: '/Finalist-Logo.png',
+      img: '/images/finalist.png',
       text: 'Evenica is honoured to be named a finalist for the Dynamics 365 Commerce 2022 Microsoft Partner of the Year Award. This award recognizes partners that excel at providing innovative and unique customer solutions centered on Microsoft Dynamics 365 Commerce.',
       title: 'Partner of the Year Finalist',
       width: 1321,
@@ -13,7 +13,7 @@ export default function Acknowledgement() {
     {
       alt: 'Deloitte Fast 50',
       height: 515,
-      img: '/Deloitte.png',
+      img: '/images/deloitte.png',
       text: 'Evenica was presented the Deloitte Technology Fast 50TM program award in 2020 for our rapid revenue growth, entrepreneurial spirit and bold innovation. The program recognizes technology companies with the highest revenue-growth percentage over the past four years. Evenica earned this recognition with 420% revenue growth from 2016 and 2019.',
       title: 'Recognized For Our Rapid Growth',
       width: 1590,

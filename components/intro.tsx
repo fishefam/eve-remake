@@ -2,8 +2,8 @@ import type { ReactNode } from 'react'
 
 import { cn } from '@/lib/utils'
 import { ArrowRight } from 'lucide-react'
-import Link from 'next/link'
 
+import ClientLink from './client-link'
 import { Button } from './ui/button'
 import { ConditionalRender } from './utils'
 
@@ -40,9 +40,9 @@ export default function Intro({
           )}
           size="lg"
         >
-          <Link href="about">
+          <ClientLink href="/about">
             Learn More <ArrowRight className="ml-2 size-4" />
-          </Link>
+          </ClientLink>
         </Button>
       </ConditionalRender>
     </section>

@@ -4,9 +4,8 @@ import type { ReactNode } from 'react'
 import Footer from '@/components/footer'
 import Header from '@/components/header'
 import ScrollToTop from '@/components/scroll-to-top'
-import { getBaseTheme } from '@/lib/utils'
+import { getBaseThemeAsync } from '@/lib/utils'
 import { Inter } from 'next/font/google'
-import { cookies as getCookies, headers as getHeaders } from 'next/headers'
 
 import './globals.css'
 
@@ -14,14 +13,11 @@ const inter = Inter({ display: 'swap', preload: true, subsets: ['latin'] })
 
 export const metadata: Metadata = { title: 'Evenica' }
 
-export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
-  const headers = getHeaders()
-  const cookies = getCookies()
-  const baseTheme = getBaseTheme(headers, cookies)
+export default async function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <html className={baseTheme} lang="en">
+    <html className={await getBaseThemeAsync()} lang="en">
       <body className={`${inter.className} antialiased`}>
-        <Header baseTheme={baseTheme} />
+        <Header />
         <main className="mb-56 mt-20">{children}</main>
         <Footer />
         <ScrollToTop />
