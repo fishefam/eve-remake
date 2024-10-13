@@ -2,15 +2,13 @@ import type { ResolvingMetadata } from 'next'
 
 import Acknowledgement from '@/components/acknowledgement'
 import ClientCarousel from '@/components/client-carousel'
+import Highlight from '@/components/highlight'
 import Intro from '@/components/intro'
 import Story from '@/components/story'
-import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { MainContainer } from '@/components/utils'
 import { createTitle } from '@/lib/utils'
-import { ArrowRight } from 'lucide-react'
 import Image from 'next/image'
-import Link from 'next/link'
 
 export async function generateMetadata(_: object, parent: ResolvingMetadata) {
   const metadata = await parent
@@ -70,25 +68,6 @@ function MicrosoftAlliance() {
           </div>
         </CardContent>
       </Card>
-    </section>
-  )
-}
-
-function Highlight() {
-  return (
-    <section className="mb-20 rounded-lg bg-gradient-to-r from-indigo-500 to-purple-600 p-12 text-white dark:from-indigo-600 dark:to-purple-700">
-      <h2 className="mb-4 text-center text-3xl font-bold">Innovative Experiences Start With Evenica</h2>
-      <p className="mb-6 text-center text-xl">
-        Evenica supports brands by providing the most demanding and sophisticated digital experiences through e-commerce
-        solutions.
-      </p>
-      <div className="flex justify-center">
-        <Button asChild className="bg-white text-indigo-600 hover:bg-gray-100" size="lg">
-          <Link href="/contact">
-            Get Started <ArrowRight className="ml-2 size-4" />
-          </Link>
-        </Button>
-      </div>
     </section>
   )
 }
