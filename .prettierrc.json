@@ -3,10 +3,10 @@
   "endOfLine": "lf",
   "htmlWhitespaceSensitivity": "ignore",
   "jsxSingleQuote": false,
+  "plugins": ["prettier-plugin-tailwindcss"],
   "printWidth": 120,
   "quoteProps": "consistent",
   "semi": false,
   "singleQuote": true,
-  "trailingComma": "all",
-  "plugins": ["prettier-plugin-tailwindcss"]
+  "trailingComma": "all"
 }

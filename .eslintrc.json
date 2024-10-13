@@ -5,28 +5,21 @@
     "plugin:perfectionist/recommended-alphabetical-legacy",
     "plugin:tailwindcss/recommended"
   ],
+  "parserOptions": { "warnOnUnsupportedTypeScriptVersion": false },
   "plugins": ["unused-imports"],
   "rules": {
     "@typescript-eslint/consistent-type-imports": "error",
     "@typescript-eslint/no-unused-vars": "off",
+    "tailwindcss/no-custom-classname": ["error", { "whitelist": ["ignore-eve-container"] }],
     "unused-imports/no-unused-imports": "error",
     "unused-imports/no-unused-vars": [
       "error",
       {
-        "vars": "all",
-        "varsIgnorePattern": "^_",
         "args": "after-used",
-        "argsIgnorePattern": "^_"
-      }
-    ],
-    "tailwindcss/no-custom-classname": [
-      "error",
-      {
-        "whitelist": ["ignore-eve-container"]
+        "argsIgnorePattern": "^_",
+        "vars": "all",
+        "varsIgnorePattern": "^_"
       }
     ]
-  },
-  "parserOptions": {
-    "warnOnUnsupportedTypeScriptVersion": false
   }
 }
