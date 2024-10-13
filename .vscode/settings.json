@@ -1,6 +1,7 @@
 {
   "files.exclude": {
     ".next": true,
+    ".vscode": true,
     "bun.lockb": true,
     "next-env.d.ts": true,
     "package-lock.json": true,
