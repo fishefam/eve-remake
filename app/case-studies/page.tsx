@@ -1,4 +1,5 @@
-import type { CaseStudies } from '@/components/case-study-grid'
+import type { CaseStudies as TCaseStudies } from '@/components/case-study-grid'
+import type { Filters as TFilters } from '@/components/filter'
 import type { ResolvingMetadata } from 'next'
 
 import CaseStudyGrid from '@/components/case-study-grid'
@@ -15,34 +16,7 @@ export async function generateMetadata(_: object, parent: ResolvingMetadata) {
 }
 
 export default async function CaseStudies() {
-  const response = await fetch('https://evenica.com/case-studies/')
-  const html = await response.text()
-  const { body } = new JSDOM(html).window.document
-  const filters = Array.from(body.querySelectorAll('select')).map(({ options }) => ({
-    name: options[0].text.toLowerCase(),
-    options: Array.from(options).map(({ text, value }, i, array) => ({
-      text: i === 0 ? `All ${capFirstChar(text)}` : text,
-      value:
-        i === 0
-          ? array
-              .filter(({ value }) => value)
-              .map(({ value }) => value)
-              .join(' ')
-          : value,
-    })),
-  }))
-  const caseStudies = Array.from(body.querySelectorAll('.case_studies-list > div')).map((item) => {
-    const getValue = (selector: string, attr: 'alt' | 'href' | 'src' | 'textContent'): string =>
-      item.querySelector(selector)?.[attr as 'textContent']?.trim() ?? ''
-    return {
-      description: getValue('p', 'textContent'),
-      href: getValue('a', 'href'),
-      imgAlt: getValue('img', 'alt'),
-      imgUrl: getValue('img', 'src'),
-      tags: Array.from(item.classList).filter((value) => value !== 'grid-item'),
-      title: getValue('h3', 'textContent'),
-    }
-  })
+  const { caseStudies, filters } = await getData()
   return (
     <MainContainer>
       <Intro
@@ -55,4 +29,45 @@ export default async function CaseStudies() {
       <Highlight />
     </MainContainer>
   )
+}
+
+async function getData() {
+  const data: { caseStudies: TCaseStudies; filters: TFilters } = {
+    caseStudies: [],
+    filters: [],
+  }
+  try {
+    const response = await fetch(process.env.CASE_STUDIES_URL ?? 'https://evenica.com/case-studies/')
+    const html = await response.text()
+    const { body } = new JSDOM(html).window.document
+    data.filters = Array.from(body.querySelectorAll('select')).map(({ options }) => ({
+      name: options[0].text.toLowerCase(),
+      options: Array.from(options).map(({ text, value }, i, array) => ({
+        text: i === 0 ? `All ${capFirstChar(text)}` : text,
+        value:
+          i === 0
+            ? array
+                .filter(({ value }) => value)
+                .map(({ value }) => value)
+                .join(' ')
+            : value,
+      })),
+    }))
+    data.caseStudies = Array.from(body.querySelectorAll('.case_studies-list > div')).map((item) => {
+      const getValue = (selector: string, attr: 'alt' | 'href' | 'src' | 'textContent'): string =>
+        item.querySelector(selector)?.[attr as 'textContent']?.trim() ?? ''
+      return {
+        description: getValue('p', 'textContent'),
+        href: getValue('a', 'href'),
+        imgAlt: getValue('img', 'alt'),
+        imgUrl: getValue('img', 'src'),
+        tags: Array.from(item.classList).filter((value) => value !== 'grid-item'),
+        title: getValue('h3', 'textContent'),
+      }
+    })
+  } catch {
+    data.caseStudies = []
+    data.filters = []
+  }
+  return data
 }

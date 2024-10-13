@@ -17,19 +17,22 @@ export async function submitContactInfo({
   title,
 }: Record<'company' | 'email' | 'firstName' | 'lastName' | 'solutionInterest' | 'title', string>) {
   const formData = new FormData()
-  formData.append('_wpcf7', '2110')
-  formData.append('_wpcf7_version', '5.9.8')
-  formData.append('_wpcf7_locale', 'en_CA')
-  formData.append('_wpcf7_unit_tag', 'wpcf7-f2110-p2405-o1')
-  formData.append('first-name', firstName)
-  formData.append('last-name', lastName)
-  formData.append('title', title)
-  formData.append('company', company)
-  formData.append('solution-interest', solutionInterest)
-  formData.append('email', email)
-  const response = await fetch('https://evenica.com/wp-json/contact-form-7/v1/contact-forms/2110/feedback', {
-    body: formData,
-    method: 'POST',
-  })
+  const data = [
+    ['_wpcf7', '2110'],
+    ['_wpcf7_locale', 'en_CA'],
+    ['_wpcf7_unit_tag', 'wpcf7-f2110-p2405-o1'],
+    ['_wpcf7_version', '5.9.8'],
+    ['first-name', firstName],
+    ['last-name', lastName],
+    ['company', company],
+    ['email', email],
+    ['solution-interest', solutionInterest],
+    ['title', title],
+  ]
+  for (const [key, value] of data) formData.append(key, value)
+  const response = await fetch(
+    process.env.CONTACT_FORM_ENDPOINT ?? 'https://evenica.com/wp-json/contact-form-7/v1/contact-forms/2110/feedback',
+    { body: formData, method: 'POST' },
+  )
   return response.json() as unknown as ContactSubmissionResponse
 }
