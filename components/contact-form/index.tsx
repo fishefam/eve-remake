@@ -7,15 +7,19 @@ import { cn } from '@/lib/utils'
 import { ArrowRight, LoaderCircle } from 'lucide-react'
 import { useState } from 'react'
 
+import { ExclamationCircle } from '../icons'
 import { Button } from '../ui/button'
 import { Input } from '../ui/input'
 import { Label } from '../ui/label'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip'
+import { ConditionalRender } from '../utils'
 import { submitContactInfo } from './actions'
 
 type FlatInput = {
   label: string
   name: string
   placeholder: string
+  required?: boolean
   setState: SetState<string>
   state: string
 }
@@ -103,10 +107,24 @@ export default function ContactForm() {
   )
 }
 
-function FormInput({ label, name, placeholder, setState, state }: FlatInput) {
+function FormInput({ label, name, placeholder, required, setState, state }: FlatInput) {
   return (
     <div key={label}>
-      <Label htmlFor={`contact-input--${name}`}>{label}</Label>
+      <Label className="flex items-center gap-2" htmlFor={`contact-input--${name}`}>
+        {label}{' '}
+        <ConditionalRender show={!!required}>
+          <TooltipProvider delayDuration={0}>
+            <Tooltip>
+              <TooltipTrigger>
+                <ExclamationCircle />
+              </TooltipTrigger>
+              <TooltipContent side="right">
+                <p>Required</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        </ConditionalRender>
+      </Label>
       <Input
         autoComplete="off"
         className="mt-2 h-12 dark:border-none dark:bg-gray-900 dark:shadow"
@@ -114,6 +132,7 @@ function FormInput({ label, name, placeholder, setState, state }: FlatInput) {
         name={name}
         onChange={(event) => setState(event.target.value)}
         placeholder={placeholder}
+        required={required}
         value={state}
       />
     </div>
