@@ -43,6 +43,7 @@
     "clsx": "^2.1.1",
     "cmdk": "1.0.0",
     "date-fns": "^4.1.0",
+    "email-validator": "^2.0.4",
     "embla-carousel-auto-scroll": "^8.3.0",
     "embla-carousel-react": "^8.3.0",
     "eslint": "^8",

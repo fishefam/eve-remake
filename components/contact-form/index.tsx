@@ -1,9 +1,9 @@
 'use client'
-
 import type { SetState } from '@/lib/types'
-import type { MouseEvent } from 'react'
+import type { ChangeEvent, MouseEvent } from 'react'
 
-import { cn } from '@/lib/utils'
+import { capFirstChar, cn } from '@/lib/utils'
+import { validate } from 'email-validator'
 import { ArrowRight, LoaderCircle } from 'lucide-react'
 import { useState } from 'react'
 
@@ -16,6 +16,8 @@ import { ConditionalRender } from '../utils'
 import { submitContactInfo } from './actions'
 
 type FlatInput = {
+  checkValidEmail?: boolean
+  errorName?: string
   label: string
   name: string
   placeholder: string
@@ -26,6 +28,10 @@ type FlatInput = {
 
 export default function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isMissingFirstName, setIsMissingFirstName] = useState(false)
+  const [isMissingLastName, setIsMissingLastName] = useState(false)
+  const [isMissingEmail, setIsMissingEmail] = useState(false)
+  const [isInvalidEmail, setIsInvalidEmail] = useState(false)
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [title, setTitle] = useState('')
@@ -36,6 +42,7 @@ export default function ContactForm() {
     {
       grouped: [
         {
+          errorName: 'isMissingFirstName',
           label: 'First Name',
           name: 'firstName',
           placeholder: 'John',
@@ -44,6 +51,7 @@ export default function ContactForm() {
           state: firstName,
         },
         {
+          errorName: 'isMissingLastName',
           label: 'Last Name',
           name: 'lastName',
           placeholder: 'Doe',
@@ -68,6 +76,8 @@ export default function ContactForm() {
       state: solutionInterest,
     },
     {
+      checkValidEmail: true,
+      errorName: 'isMissingEmail',
       label: 'Email',
       name: 'email',
       placeholder: 'john@example.com',
@@ -77,23 +87,63 @@ export default function ContactForm() {
     },
   ]
   const handleSubmit = async (event: MouseEvent) => {
-    event.preventDefault()
     setIsSubmitting(true)
-    await submitContactInfo({ company, email, firstName, lastName, solutionInterest, title })
+    event.preventDefault()
+    let flag = false
+    const checks = [
+      [firstName, setIsMissingFirstName],
+      [lastName, setIsMissingLastName],
+      [email, setIsMissingEmail],
+    ] as const
+    for (const [value, setIsMissingValue] of checks)
+      if (!value) {
+        setIsMissingValue(true)
+        flag = true
+      }
+    if (!email) {
+      setIsSubmitting(false)
+      return
+    }
+    if (!validate(email)) {
+      setIsInvalidEmail(true)
+      flag = true
+    }
+    if (!flag) await submitContactInfo({ company, email, firstName, lastName, solutionInterest, title })
     setIsSubmitting(false)
   }
   const SubmitIcon = isSubmitting ? LoaderCircle : ArrowRight
+  const errors = { isMissingEmail, isMissingFirstName, isMissingLastName } as Record<string, boolean>
+  const setErrors = { setIsMissingEmail, setIsMissingFirstName, setIsMissingLastName } as Record<
+    string,
+    SetState<boolean>
+  >
   return (
     <form className="space-y-6 rounded-2xl border bg-white p-7 shadow dark:bg-black">
-      {inputs.map(({ grouped, ...props }, i) =>
+      {inputs.map(({ checkValidEmail, errorName, grouped, ...props }, i) =>
         grouped ? (
           <div className="grid gap-4 sm:grid-cols-2" key={`grouped-${i}`}>
-            {grouped.map((_props) => (
-              <FormInput {..._props} key={_props.label} />
+            {grouped.map(({ checkValidEmail: _checkValidEmail, errorName: _errorName, ..._props }) => (
+              <FormInput
+                {..._props}
+                checkValidEmail={_checkValidEmail}
+                isInvalidEmail={_checkValidEmail ? isInvalidEmail : undefined}
+                isMissingValue={_errorName ? errors[_errorName] : false}
+                key={_props.label}
+                setIsInvalidEmail={_checkValidEmail ? setIsInvalidEmail : undefined}
+                setIsMissingValue={_errorName ? setErrors[`set${capFirstChar(_errorName ?? '')}`] : undefined}
+              />
             ))}
           </div>
         ) : (
-          <FormInput {...props} key={props.label} />
+          <FormInput
+            {...props}
+            checkValidEmail={checkValidEmail}
+            isInvalidEmail={checkValidEmail ? isInvalidEmail : undefined}
+            isMissingValue={errorName ? errors[errorName] : false}
+            key={props.label}
+            setIsInvalidEmail={checkValidEmail ? setIsInvalidEmail : undefined}
+            setIsMissingValue={errorName ? setErrors[`set${capFirstChar(errorName)}`] : undefined}
+          />
         ),
       )}
       <Button
@@ -107,7 +157,29 @@ export default function ContactForm() {
   )
 }
 
-function FormInput({ label, name, placeholder, required, setState, state }: FlatInput) {
+function FormInput({
+  checkValidEmail,
+  isInvalidEmail,
+  isMissingValue,
+  label,
+  name,
+  placeholder,
+  required,
+  setIsInvalidEmail,
+  setIsMissingValue,
+  setState,
+  state,
+}: {
+  isInvalidEmail?: boolean
+  isMissingValue?: boolean
+  setIsInvalidEmail?: SetState<boolean>
+  setIsMissingValue?: SetState<boolean>
+} & Omit<FlatInput, 'errorName'>) {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setState(event.target.value)
+    setIsMissingValue?.(false)
+    setIsInvalidEmail?.(false)
+  }
   return (
     <div key={label}>
       <Label className="flex items-center gap-2" htmlFor={`contact-input--${name}`}>
@@ -127,14 +199,20 @@ function FormInput({ label, name, placeholder, required, setState, state }: Flat
       </Label>
       <Input
         autoComplete="off"
-        className="mt-2 h-12 dark:border-none dark:bg-gray-900 dark:shadow"
+        className="mt-2 inline-block h-12 dark:border-none dark:bg-gray-900 dark:shadow"
         id={`contact-input--${name}`}
         name={name}
-        onChange={(event) => setState(event.target.value)}
+        onChange={(event) => handleChange(event)}
         placeholder={placeholder}
         required={required}
         value={state}
       />
+      <ConditionalRender show={!!checkValidEmail && !!isInvalidEmail}>
+        <p className="mt-2 text-xs text-red-500">Invalid email</p>
+      </ConditionalRender>
+      <ConditionalRender show={!!required && !!isMissingValue}>
+        <p className="mt-2 text-xs text-red-500">This field is required</p>
+      </ConditionalRender>
     </div>
   )
 }

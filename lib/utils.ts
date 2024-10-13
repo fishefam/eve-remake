@@ -68,3 +68,7 @@ export async function getHeaderAsync<T extends object | string = string>(key: st
 export function isSamePath(href1?: null | string, href2?: null | string) {
   return href1?.replace(/^\//, '') === href2?.replace(/^\//, '')
 }
+
+export function capFirstChar(value: string) {
+  return value.charAt(0).toUpperCase().concat(value.slice(1))
+}
