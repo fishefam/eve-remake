@@ -14,9 +14,10 @@ export async function generateMetadata(_: object, parent: ResolvingMetadata) {
 }
 
 export default async function Page(_: { params: { resource: string } }) {
+  console.log(globalThis.articleContent)
   return (
     <MainContainer>
-      <article className="mapped-article" dangerouslySetInnerHTML={{ __html: globalThis.articleContent }}></article>
+      <article className="mapped-article" dangerouslySetInnerHTML={{ __html: '<div>WHAT HELLO</div>' }}></article>
     </MainContainer>
   )
 }
