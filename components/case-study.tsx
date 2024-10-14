@@ -11,7 +11,7 @@ export default function CaseStudy({
   href,
   image,
   title,
-}: { [key in 'alt' | 'description' | 'href' | 'image' | 'title']: string }) {
+}: { [key in 'alt' | 'description' | 'image' | 'title']: string } & { href: `case-studies/${CaseStudyPath}` }) {
   return (
     <section className="mb-20">
       <Card className="overflow-hidden dark:bg-gray-800">

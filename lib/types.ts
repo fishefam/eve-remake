@@ -12,6 +12,7 @@ declare global {
 }
 
 interface CustomNodeEnv {
+  CAREER_FORM_ENDPOINT: string
   CASE_STUDIES_URL: string
   CONTACT_FORM_ENDPOINT: string
   RESOURCES_URL: string

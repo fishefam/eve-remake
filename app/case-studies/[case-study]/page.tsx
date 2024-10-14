@@ -16,9 +16,9 @@ import { cn, createTitle } from '@/lib/utils'
 import { Download, Eye } from 'lucide-react'
 import Image from 'next/image'
 
+import PDFViewer from '../../../components/pdf'
 import kaiData from './kai-usa-ltd.study.json'
 import kaskoData from './kasco.study.json'
-import PDFViewer from './pdf'
 import theRaiderImageData from './the-raider-image.study.json'
 
 export async function generateMetadata(_: object, parent: ResolvingMetadata) {

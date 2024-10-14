@@ -7,25 +7,25 @@ const categories = [
   {
     category: 'Company',
     links: [
-      { href: 'about', label: 'About' },
-      { href: 'careers', label: 'Careers' },
-      { href: 'contact', label: 'Contact' },
+      { href: '/about', label: 'About' },
+      { href: '/careers', label: 'Careers' },
+      { href: '/contact', label: 'Contact' },
     ],
   },
   {
     category: 'Solutions',
     links: [
-      { href: 'solutions/d365-commerce', label: 'E-Commerce' },
-      { href: 'solutions/e4-dynamics', label: 'e4Dynamics' },
-      { href: 'solutions/e4-platform', label: 'e4Platform' },
-    ] as { href: `solutions/${SolutionPath}`; label: string }[],
+      { href: '/solutions/d365-commerce', label: 'E-Commerce' },
+      { href: '/solutions/e4-dynamics', label: 'e4Dynamics' },
+      { href: '/solutions/e4-platform', label: 'e4Platform' },
+    ] as { href: `/solutions/${SolutionPath}`; label: string }[],
   },
   {
     category: 'Resources',
     links: [
-      { href: '#', label: 'Blog' },
-      { href: '#', label: 'Case Studies' },
-      { href: '#', label: 'Webinars' },
+      { href: '/resources?filteredBy=blog-post', label: 'Blog' },
+      { href: '/case-studies', label: 'Case Studies' },
+      { href: '/resources?filteredBy=webinar', label: 'Webinars' },
     ],
   },
 ] as const

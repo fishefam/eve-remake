@@ -43,7 +43,7 @@ export default function Page() {
       <CaseStudy
         alt="KASCO"
         description="Learn how KASCO is using Microsoft D365 Commerce as a foundation for business growth. By leveraging Evenica's Quick Start Methodology we delivered time to value, with future strategic initiatives in mind."
-        href="case_studies/kasco-case-study"
+        href="case-studies/kasco-case-study"
         image="/images/kasco.png"
         title="A CUTTING EDGE E-COMMERCE EXPERIENCE FOR KASCO"
       />

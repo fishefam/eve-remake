@@ -3,13 +3,13 @@ import type { ResolvingMetadata } from 'next/types'
 import Acknowledgement from '@/components/acknowledgement'
 import CaseStudy from '@/components/case-study'
 import ClientCarousel from '@/components/client-carousel'
+import ClientLink from '@/components/client-link'
 import Intro from '@/components/intro'
 import { Button } from '@/components/ui/button'
 import { MainContainer } from '@/components/utils'
 import { createTitle } from '@/lib/utils'
 import { ArrowRight, CheckCircle } from 'lucide-react'
 import Image from 'next/image'
-import Link from 'next/link'
 
 export async function generateMetadata(_: object, parent: ResolvingMetadata) {
   const metadata = await parent
@@ -36,7 +36,7 @@ export default function Page() {
       <CaseStudy
         alt="Raider Image"
         description="Discover how The Raider Image is using Evenica&#039;s ePlatform and eIntegrate to create a connected commerce solution with seamless integration capabilities."
-        href="case_studies/the-raider-image-case-study"
+        href="case-studies/the-raider-image-case-study"
         image="/images/the-raider-image.png"
         title="Kicking Off an Integrated E-Commerce Experience for The Raider Image"
       />
@@ -133,9 +133,9 @@ function D365Commerce() {
             className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white transition-colors hover:from-indigo-600 hover:to-purple-700"
             size="lg"
           >
-            <Link href="solutions">
+            <ClientLink href="solutions">
               Learn More <ArrowRight className="ml-2 size-4" />
-            </Link>
+            </ClientLink>
           </Button>
         </div>
       </div>

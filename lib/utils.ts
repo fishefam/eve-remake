@@ -31,7 +31,7 @@ export function getBaseTheme(headers: ReadonlyHeaders, cookies: ReadonlyRequestC
   const { value: cookieTheme } = (cookies.get('theme') as { value: Theme } | undefined) ?? {}
   const clientHintTheme = getHeader<Theme>('Sec-CH-Prefers-Color-Scheme', headers)
   const hour = parseInt(getHeader('Hour', headers) ?? '0')
-  const hourTheme = hour < 18 ? 'light' : 'dark'
+  const hourTheme = hour < 18 && hour > 8 ? 'light' : 'dark'
   return cookieTheme ?? clientHintTheme ?? hourTheme
 }
 

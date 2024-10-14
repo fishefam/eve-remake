@@ -7,11 +7,10 @@ import { validate } from 'email-validator'
 import { ArrowRight, LoaderCircle } from 'lucide-react'
 import { useState } from 'react'
 
-import { ExclamationCircle } from '../icons'
+import { RequiredIcon } from '../icons'
 import { Button } from '../ui/button'
 import { Input } from '../ui/input'
 import { Label } from '../ui/label'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip'
 import { ConditionalRender } from '../utils'
 import { submitContactInfo } from './actions'
 
@@ -67,7 +66,7 @@ export default function ContactForm() {
       state: '',
     },
     { label: 'Title', name: 'title', placeholder: 'CEO', setState: setTitle, state: title },
-    { label: 'Company', name: 'company', placeholder: 'Acme Inc.', setState: setCompany, state: company },
+    { label: 'Company', name: 'company', placeholder: 'KASCO', setState: setCompany, state: company },
     {
       label: 'Solution Interest',
       name: 'solutionInterest',
@@ -185,22 +184,12 @@ function FormInput({
       <Label className="flex items-center gap-2" htmlFor={`contact-input--${name}`}>
         {label}{' '}
         <ConditionalRender show={!!required}>
-          <TooltipProvider delayDuration={0}>
-            <Tooltip>
-              <TooltipTrigger>
-                <ExclamationCircle />
-                <p className="sr-only">Important</p>
-              </TooltipTrigger>
-              <TooltipContent side="right">
-                <p>Required</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
+          <RequiredIcon />
         </ConditionalRender>
       </Label>
       <Input
         autoComplete="off"
-        className="mt-2 inline-block h-12 dark:border-none dark:bg-gray-900 dark:shadow"
+        className="mt-2 inline-block h-12 transition-colors hover:ring-1 hover:ring-gray-200 dark:border-none dark:bg-gray-900 dark:shadow dark:hover:ring-gray-800"
         id={`contact-input--${name}`}
         name={name}
         onChange={(event) => handleChange(event)}

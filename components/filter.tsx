@@ -4,7 +4,8 @@ import type { SetState } from '@/lib/types'
 
 import { capFirstChar, cn } from '@/lib/utils'
 import { X } from 'lucide-react'
-import { createContext, type ReactNode, useContext, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
+import { createContext, type ReactNode, useContext, useEffect, useState } from 'react'
 import { isEqual } from 'underscore'
 
 import { useContentWithFilterContext } from './content-with-filter'
@@ -41,6 +42,7 @@ export default function Filters({ children, filters }: { children: ReactNode; fi
       return filters
     })
   }
+  useFilterBySearchParam({ setSelectedTags })
   return (
     <section className="space-y-12">
       <ConditionalRender show={!!filters.length}>
@@ -78,4 +80,21 @@ export default function Filters({ children, filters }: { children: ReactNode; fi
       </FilterContext.Provider>
     </section>
   )
+}
+
+function useFilterBySearchParam({ setSelectedTags }: { setSelectedTags: SetState<string[][]> }) {
+  const searchParams = useSearchParams()
+  const filteredBy = searchParams.get('filteredBy')
+  useEffect(() => {
+    if (filteredBy)
+      setSelectedTags((state) => {
+        const filters = [...state]
+        for (let i = 0; i < filters.length; i++)
+          if (filters[i].includes(filteredBy)) {
+            filters[i] = [filteredBy]
+            break
+          }
+        return filters
+      })
+  }, [filteredBy, setSelectedTags])
 }
