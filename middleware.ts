@@ -7,7 +7,7 @@ import { getItem } from './lib/utils'
 type HelperParams = { request: NextRequest; response: NextResponse }
 
 export const config = {
-  matcher: ['/', '/about', '/solutions(/?.*)', '/industries', '/case-studies', '/resources(/?.*)', '/contact'],
+  matcher: ['/', '/about', '/solutions(/?.*)', '/industries', '/case-studies(/?.*)', '/resources(/?.*)', '/contact'],
 }
 
 export default async function middleware(request: NextRequest) {

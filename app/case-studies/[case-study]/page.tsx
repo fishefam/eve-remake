@@ -8,14 +8,14 @@ import { headers as getHeaders } from 'next/headers'
 
 export async function generateMetadata(_: object, parent: ResolvingMetadata) {
   const metadata = await parent
-  return { description: 'Article', title: createTitle('Article | Resource', metadata) }
+  return { description: 'Article', title: createTitle('Article | Case Study', metadata) }
 }
 
 export default async function Page(_: { params: { resource: string } }) {
   const { article } = await getData()
   return (
     <MainContainer>
-      <article className="resource-article" dangerouslySetInnerHTML={{ __html: article }}></article>
+      <article className="case-study-article" dangerouslySetInnerHTML={{ __html: article }}></article>
     </MainContainer>
   )
 }
@@ -25,20 +25,7 @@ async function getData() {
   const response = await fetch(legacyPath)
   const html = await response.text()
   const { body, title } = new JSDOM(html).window.document
-  const container = body.querySelector('.et_pb_column_0_tb_body')
-  const lastParagraph = body.querySelector('.et_pb_column_0_tb_body > div:last-child > p:last-of-type')
-  const actionLink = body.querySelector('.et_pb_column_0_tb_body > div:last-child > p:last-of-type a')
-  const lastParagraphText = Array.from(lastParagraph?.childNodes ?? []).reduce(
-    (a, b) => a + (b.nodeType === 3 ? b.textContent : ''),
-    '',
-  )
-  if (!lastParagraphText.length && actionLink) {
-    const element = body.querySelector('.et_pb_column_0_tb_body > div:last-child > p:last-of-type a')
-    if (element) {
-      element.classList.add('eve-action-link')
-      element.textContent = element?.textContent?.toLowerCase() ?? ''
-    }
-  }
+  const container = body.querySelector('#main-content .et_builder_inner_content')
   const article = container?.innerHTML ?? ''
   const minifiedArticle = (await minify(article, { collapseWhitespace: true })).replace(
     /(style|srcset|fetchpriority|decoding|sizes)="[^"]*"/gi,
