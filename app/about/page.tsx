@@ -12,10 +12,14 @@ import Image from 'next/image'
 
 export async function generateMetadata(_: object, parent: ResolvingMetadata) {
   const metadata = await parent
-  return { title: createTitle('About', metadata) }
+  return {
+    description:
+      'Learn about Evenica, a Microsoft Gold Partner and leader in e-commerce solutions. With over 20 years of experience, we deliver innovative digital solutions for top brands through expertise in Microsoft Dynamics 365 Commerce.',
+    title: createTitle('About', metadata),
+  }
 }
 
-export default function About() {
+export default function Page() {
   return (
     <MainContainer>
       <Intro

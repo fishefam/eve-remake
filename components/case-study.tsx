@@ -31,11 +31,12 @@ export default function CaseStudy({
             <p className="mb-4 text-gray-700 dark:text-gray-300">{description}</p>
             <Button
               asChild
-              className="border-none bg-gradient-to-r from-indigo-500 to-purple-600 text-white hover:from-indigo-600 hover:to-purple-700"
+              className="border-none bg-gradient-to-r from-indigo-500 to-purple-600 text-white hover:from-indigo-600 hover:to-purple-700 hover:text-white"
               variant="outline"
             >
               <Link href={href}>
                 Read More <ChevronRight className="ml-2 size-4" />
+                <p className="sr-only">{title}</p>
               </Link>
             </Button>
           </div>

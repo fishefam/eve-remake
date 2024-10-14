@@ -3,6 +3,7 @@ import type { ButtonProps } from '@/components/ui/button'
 import { buttonVariants } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { ChevronLeftIcon, ChevronRightIcon, DotsHorizontalIcon } from '@radix-ui/react-icons'
+import Link from 'next/link'
 import * as React from 'react'
 
 const Pagination = ({ className, ...props }: React.ComponentProps<'nav'>) => (
@@ -32,19 +33,28 @@ type PaginationLinkProps = {
 } & Pick<ButtonProps, 'size'> &
   React.ComponentProps<'a'>
 
-const PaginationLink = ({ className, isActive, size = 'icon', ...props }: PaginationLinkProps) => (
-  <a
-    aria-current={isActive ? 'page' : undefined}
-    className={cn(
-      buttonVariants({
-        size,
-        variant: isActive ? 'outline' : 'ghost',
-      }),
-      className,
-    )}
-    {...props}
-  />
-)
+const PaginationLink = ({
+  className,
+  isActive,
+  nextLink = true,
+  size = 'icon',
+  ...props
+}: { nextLink?: boolean } & PaginationLinkProps) => {
+  const Tag = (nextLink ? Link : 'a') as 'a'
+  return (
+    <Tag
+      aria-current={isActive ? 'page' : undefined}
+      className={cn(
+        buttonVariants({
+          size,
+          variant: isActive ? 'outline' : 'ghost',
+        }),
+        className,
+      )}
+      {...props}
+    />
+  )
+}
 PaginationLink.displayName = 'PaginationLink'
 
 const PaginationPrevious = ({ className, ...props }: React.ComponentProps<typeof PaginationLink>) => (

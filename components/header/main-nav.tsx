@@ -16,14 +16,35 @@ import * as React from 'react'
 
 import { ConditionalRender } from '../utils'
 
+type SubLink = { description?: string; href: string; label: string }
+
 export const links: {
   href: string
   label: string
-  subLinks?: { description?: string; href: string; label: string }[]
+  subLinks?: SubLink[]
 }[] = [
   { href: '/about', label: 'About' },
-  { href: '/solutions', label: 'Solutions' },
-  { href: '/case-studies', label: 'Case Studies' },
+  {
+    href: '/solutions',
+    label: 'Solutions',
+    subLinks: [
+      {
+        description: 'Implementer of Microsoft Dynamics 365 Commerce.',
+        href: '/solutions/d365-commerce',
+        label: 'D365 E-Commerce',
+      },
+      {
+        description: 'A library that enhances current Microsoft Dynamics 365 Commerce capabilities',
+        href: '/solutions/e4-dynamics',
+        label: 'e4Dynamics',
+      },
+      {
+        description: 'Provides a core e-commerce framework to incorporate custom apps',
+        href: '/solutions/e4-platform',
+        label: 'e4Platform',
+      },
+    ] as ({ href: `/solutions/${SolutionPath}` } & SubLink)[],
+  },
   {
     href: '/industries',
     label: 'Industries',
@@ -61,6 +82,7 @@ export const links: {
       },
     ],
   },
+  { href: '/case-studies', label: 'Case Studies' },
   { href: '/resources', label: 'Resources' },
 ]
 

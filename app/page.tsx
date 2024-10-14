@@ -16,7 +16,7 @@ export async function generateMetadata(_: object, parent: ResolvingMetadata) {
   return { title: createTitle('Home', metadata) }
 }
 
-export default function Home() {
+export default function Page() {
   return (
     <MainContainer>
       <Intro

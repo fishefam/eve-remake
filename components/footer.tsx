@@ -15,10 +15,10 @@ const categories = [
   {
     category: 'Solutions',
     links: [
-      { href: '#', label: 'E-Commerce' },
-      { href: '#', label: 'Dynamics 365' },
-      { href: '#', label: 'Integration' },
-    ],
+      { href: 'solutions/d365-commerce', label: 'E-Commerce' },
+      { href: 'solutions/e4-dynamics', label: 'e4Dynamics' },
+      { href: 'solutions/e4-platform', label: 'e4Platform' },
+    ] as { href: `solutions/${SolutionPath}`; label: string }[],
   },
   {
     category: 'Resources',
@@ -31,11 +31,11 @@ const categories = [
 ] as const
 
 const connects = [
-  { href: 'https://linkedin.com/company/evenica/', Icon: LinkedIn },
-  { href: 'https://facebook.com/Evenica-105051155109644/', Icon: Facebook },
-  { href: 'https://x.com/evenicacorp', Icon: X },
-  { href: 'https://instagram.com/evenicacorp/', Icon: Instagram },
-  { href: 'https://pinterest.ca/evenicacorp/', Icon: Pinterest },
+  { href: 'https://linkedin.com/company/evenica/', Icon: LinkedIn, label: 'LinkedIn' },
+  { href: 'https://facebook.com/Evenica-105051155109644/', Icon: Facebook, label: 'Facebook' },
+  { href: 'https://x.com/evenicacorp', Icon: X, label: 'X' },
+  { href: 'https://instagram.com/evenicacorp/', Icon: Instagram, label: 'Instagram' },
+  { href: 'https://pinterest.ca/evenicacorp/', Icon: Pinterest, label: 'Pinterest' },
 ] as const
 
 export default function Footer() {
@@ -45,7 +45,7 @@ export default function Footer() {
         <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
           {categories.map(({ category, links }) => (
             <div key={category}>
-              <h3 className="mb-4 text-lg font-semibold">{category}</h3>
+              <h1 className="mb-4 text-lg font-semibold">{category}</h1>
               <ul className="space-y-2">
                 {links.map(({ href, label }, i) => (
                   <li key={i}>
@@ -58,10 +58,15 @@ export default function Footer() {
             </div>
           ))}
           <div>
-            <h3 className="mb-4 text-lg font-semibold">Connect</h3>
+            <h1 className="mb-4 text-lg font-semibold">Connect</h1>
             <div className="flex flex-wrap space-x-4 [row-gap:16px]">
-              {connects.map(({ href, Icon }) => (
-                <Link className="text-white transition-colors hover:text-indigo-400" href={href} key={href}>
+              {connects.map(({ href, Icon, label }) => (
+                <Link
+                  aria-label={label}
+                  className="text-white transition-colors hover:text-indigo-400"
+                  href={href}
+                  key={href}
+                >
                   <Icon />
                 </Link>
               ))}

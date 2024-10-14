@@ -2,13 +2,17 @@
 
 import type { SetState } from '@/lib/types'
 
-import { capFirstChar } from '@/lib/utils'
+import { capFirstChar, cn } from '@/lib/utils'
+import { X } from 'lucide-react'
 import { createContext, type ReactNode, useContext, useState } from 'react'
+import { isEqual } from 'underscore'
 
+import { useContentWithFilterContext } from './content-with-filter'
+import { Button } from './ui/button'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select'
 import { ConditionalRender } from './utils'
 
-export type Filters = { name: string; options: { text: string; value: string }[] }[]
+export type TFilters = { name: string; options: { text: string; value: string }[] }[]
 
 export const FilterContext = createContext<{
   defaultSelectedTags: string[][]
@@ -19,17 +23,24 @@ export const FilterContext = createContext<{
   selectedTags: [],
   setSelectedTags: () => {},
 })
-export const useFilterContext = () => useContext(FilterContext)
 
-export default function Filters({ children, filters }: { children: ReactNode; filters: Filters }) {
+export function useFilterContext() {
+  return useContext(FilterContext)
+}
+
+export default function Filters({ children, filters }: { children: ReactNode; filters: TFilters }) {
   const defaultSelectedTags = filters.map(({ options }) => options[0].value.split(' '))
+  const { setCurrentPage } = useContentWithFilterContext()
   const [selectedTags, setSelectedTags] = useState(defaultSelectedTags)
-  const handleSelect = (value: string, i: number) =>
+  const resetSelectedTags = () => setSelectedTags(defaultSelectedTags)
+  const handleSelect = (value: string, i: number) => {
+    setCurrentPage(0)
     setSelectedTags((state) => {
       const filters = [...state]
       filters[i] = value.split(' ')
       return filters
     })
+  }
   return (
     <section className="space-y-12">
       <ConditionalRender show={!!filters.length}>
@@ -37,7 +48,7 @@ export default function Filters({ children, filters }: { children: ReactNode; fi
           <p className="text-lg font-semibold text-gray-700 dark:text-gray-300">Filter By:</p>
           {filters.map(({ name, options }, i) => (
             <Select key={i} onValueChange={(value) => handleSelect(value, i)} value={selectedTags[i].join(' ')}>
-              <SelectTrigger className="w-full dark:bg-black dark:text-white sm:w-2/3 md:w-60">
+              <SelectTrigger aria-label={name} className="w-full dark:bg-black dark:text-white sm:w-2/3 md:w-60">
                 <SelectValue placeholder={capFirstChar(name)} />
               </SelectTrigger>
               <SelectContent>
@@ -49,6 +60,17 @@ export default function Filters({ children, filters }: { children: ReactNode; fi
               </SelectContent>
             </Select>
           ))}
+          <Button
+            aria-label="Reset filter"
+            className={cn(
+              'hidden border-none bg-transparent text-gray-700 shadow-none hover:from-indigo-600 hover:to-purple-700 dark:text-white md:inline-flex',
+            )}
+            disabled={isEqual(selectedTags, defaultSelectedTags)}
+            onClick={resetSelectedTags}
+            variant="outline"
+          >
+            <X />
+          </Button>
         </div>
       </ConditionalRender>
       <FilterContext.Provider value={{ defaultSelectedTags, selectedTags, setSelectedTags }}>

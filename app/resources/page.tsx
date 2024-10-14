@@ -14,23 +14,23 @@ export async function generateMetadata(_: object, parent: ResolvingMetadata) {
   return {
     description:
       'Explore how Evenica transforms businesses with cutting-edge e-commerce solutions. Browse case studies across industries showcasing real-world success with Microsoft Dynamics 365 Commerce and more.',
-    title: createTitle('Case Studies', metadata),
+    title: createTitle('Resources', metadata),
   }
 }
 
 export default async function Page() {
-  const { caseStudies, filters } = await getData()
+  const { filters, resources } = await getData()
   return (
     <MainContainer>
       <Intro
-        description="Discover how Evenica has helped businesses transform their e-commerce experiences."
-        title="Case Studies"
+        description="Discover insights, guides, and tools to enhance your e-commerce strategy."
+        title="Resources"
       />
       <ContentWithFilter
-        contents={caseStudies}
+        contents={resources}
         filters={filters}
-        legacyPath="https://evenica.com/case_studies"
-        path="/case-studies"
+        legacyPath="https://evenica.com/resource"
+        path="/resources"
       />
       <Highlight />
     </MainContainer>
@@ -38,12 +38,12 @@ export default async function Page() {
 }
 
 async function getData() {
-  const data: { caseStudies: TContentGrid; filters: TFilters } = {
-    caseStudies: [],
+  const data: { filters: TFilters; resources: TContentGrid } = {
     filters: [],
+    resources: [],
   }
   try {
-    const response = await fetch(process.env.CASE_STUDIES_URL ?? 'https://evenica.com/case-studies/')
+    const response = await fetch(process.env.RESOURCES_URL ?? 'https://evenica.com/resources/')
     const html = await response.text()
     const { body } = new JSDOM(html).window.document
     data.filters = Array.from(body.querySelectorAll('select')).map(({ options }) => ({
@@ -59,7 +59,7 @@ async function getData() {
             : value,
       })),
     }))
-    data.caseStudies = Array.from(body.querySelectorAll('.case_studies-list > div')).map((item) => {
+    data.resources = Array.from(body.querySelectorAll('.resource-list > div')).map((item) => {
       const getValue = (selector: string, attr: 'alt' | 'href' | 'src' | 'textContent'): string =>
         item.querySelector(selector)?.[attr as 'textContent']?.trim() ?? ''
       return {
@@ -72,7 +72,7 @@ async function getData() {
       }
     })
   } catch {
-    data.caseStudies = []
+    data.resources = []
     data.filters = []
   }
   return data

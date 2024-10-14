@@ -75,6 +75,7 @@ function Toggler({ isOpen, setIsOpen }: Props) {
   return (
     <Button className="md:hidden" onClick={() => setIsOpen((state) => !state)} size="icon" variant="ghost">
       {isOpen ? <X className="size-6" /> : <Menu className="size-6" />}
+      <p className="sr-only">Hamburger Menu Button</p>
     </Button>
   )
 }

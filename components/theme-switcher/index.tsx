@@ -18,6 +18,7 @@ export default function ThemeSwitcher({ baseTheme }: { baseTheme: Theme }) {
   return (
     <Button onClick={handleTheme} size="icon" variant="ghost">
       <Icon className="size-5" />
+      <p className="sr-only">Theme Switcher</p>
     </Button>
   )
 }

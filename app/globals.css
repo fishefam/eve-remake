@@ -65,6 +65,12 @@
   body {
     @apply bg-gradient-to-b from-indigo-50 via-white to-indigo-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 dark:text-white;
   }
+  .mapped-article > *:last-child img {
+    @apply mb-8 rounded-lg;
+  }
+  .mapped-article > *:first-child :is(h1, h2, h3, h4, h5, h6) {
+    @apply mb-6 text-4xl font-bold tracking-tight text-gray-900;
+  }
 }
 
 @layer utilities {

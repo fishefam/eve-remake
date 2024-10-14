@@ -10,10 +10,14 @@ import Link from 'next/link'
 
 export async function generateMetadata(_: object, parent: ResolvingMetadata) {
   const metadata = await parent
-  return { title: createTitle('Contact', metadata) }
+  return {
+    description:
+      'Get in touch with Evenica, a leader in e-commerce solutions. Contact us today for inquiries about Microsoft Dynamics 365 Commerce and custom digital solutions for your business.',
+    title: createTitle('Contact', metadata),
+  }
 }
 
-export default function Contact() {
+export default function Page() {
   return (
     <MainContainer>
       <Intro
@@ -69,7 +73,7 @@ function ContactTiles() {
       {contacts.map(({ href, Icon, label, line1, line2, title }) => (
         <Card key={title}>
           <CardHeader>
-            <CardTitle className="flex items-center">
+            <CardTitle className="flex items-center" tag="h1">
               <Icon className="mr-2 size-5 text-indigo-500" />
               {title}
             </CardTitle>

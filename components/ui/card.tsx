@@ -13,11 +13,13 @@ const CardHeader = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDiv
 )
 CardHeader.displayName = 'CardHeader'
 
-const CardTitle = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLHeadingElement>>(
-  ({ className, ...props }, ref) => (
-    <h3 className={cn('font-semibold leading-none tracking-tight', className)} ref={ref} {...props} />
-  ),
-)
+const CardTitle = React.forwardRef<
+  HTMLParagraphElement,
+  { tag?: `h${1 | 2 | 3 | 4 | 5 | 6}` } & React.HTMLAttributes<HTMLHeadingElement>
+>(({ className, tag = 'h3', ...props }, ref) => {
+  const Tag = tag as 'h3'
+  return <Tag className={cn('font-semibold leading-none tracking-tight', className)} ref={ref} {...props} />
+})
 CardTitle.displayName = 'CardTitle'
 
 const CardDescription = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLParagraphElement>>(

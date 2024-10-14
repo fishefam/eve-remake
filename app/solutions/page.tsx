@@ -9,13 +9,18 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { MainContainer } from '@/components/utils'
 import { createTitle } from '@/lib/utils'
 import { ArrowRight } from 'lucide-react'
+import Link from 'next/link'
 
 export async function generateMetadata(_: object, parent: ResolvingMetadata) {
   const metadata = await parent
-  return { title: createTitle('Solutions', metadata) }
+  return {
+    description:
+      "Discover Evenica's innovative e-commerce solutions tailored for your business. Explore Microsoft Dynamics 365 Commerce implementations, digital transformation strategies, and the evolution of e-commerce designed to enhance customer experiences.",
+    title: createTitle('Solutions', metadata),
+  }
 }
 
-export default function Solutions() {
+export default function Page() {
   return (
     <MainContainer>
       <Intro
@@ -47,21 +52,24 @@ export default function Solutions() {
 }
 
 function CommerceSolutions() {
-  const contents = [
+  const contents: { description: string; path: SolutionPath; title: string }[] = [
     {
       description:
         'Evenica is one of the leading implementers of Microsoft Dynamics 365 Commerce. We execute through our proven methodology, including discovery workshops, process mapping, and solution design.',
-      title: 'D365 COMMERCE',
+      path: 'd365-commerce',
+      title: 'Dynamics 365 Commerce',
     },
     {
       description:
         "Evenica's e4Dynamics is a library of functional and independent building blocks to enhance current Microsoft Dynamics 365 Commerce capabilities for both B2B and B2C scenarios.",
-      title: 'E4DYNAMICS',
+      path: 'e4-dynamics',
+      title: 'e4Dynamics',
     },
     {
       description:
         "Evenica's e4Platform is an integrated commerce platform that provides a core e-commerce framework with the option to incorporate custom apps that provide additional functionality.",
-      title: 'E4PLATFORM',
+      path: 'e4-platform',
+      title: 'e4Platform',
     },
   ]
   return (
@@ -70,7 +78,7 @@ function CommerceSolutions() {
         Digital Commerce Solutions
       </h2>
       <div className="grid gap-8 md:grid-cols-3">
-        {contents.map(({ description, title }) => (
+        {contents.map(({ description, path, title }) => (
           <div key={title}>
             <Card className="h-full">
               <CardHeader>
@@ -78,8 +86,10 @@ function CommerceSolutions() {
               </CardHeader>
               <CardContent>
                 <p className="mb-4 text-gray-700 dark:text-gray-300">{description}</p>
-                <Button className="w-full" variant="outline">
-                  Explore Further <ArrowRight className="ml-2 size-4" />
+                <Button asChild className="w-full" variant="outline">
+                  <Link href={`/solutions/${path}`}>
+                    Explore Further <ArrowRight className="ml-2 size-4" />
+                  </Link>
                 </Button>
               </CardContent>
             </Card>

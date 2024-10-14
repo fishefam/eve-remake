@@ -72,3 +72,7 @@ export function isSamePath(href1?: null | string, href2?: null | string) {
 export function capFirstChar(value: string) {
   return value.charAt(0).toUpperCase().concat(value.slice(1))
 }
+
+export function getItem<T>(array: T[], index: number) {
+  return array[index >= 0 ? index : array.length + index]
+}

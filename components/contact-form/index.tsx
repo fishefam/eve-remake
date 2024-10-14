@@ -189,6 +189,7 @@ function FormInput({
             <Tooltip>
               <TooltipTrigger>
                 <ExclamationCircle />
+                <p className="sr-only">Important</p>
               </TooltipTrigger>
               <TooltipContent side="right">
                 <p>Required</p>
