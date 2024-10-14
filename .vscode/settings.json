@@ -1,12 +1,17 @@
 {
   "files.exclude": {
     ".next": true,
-    ".vscode": true,
     "bun.lockb": true,
     "next-env.d.ts": true,
     "package-lock.json": true,
     "pnpm-lock.yaml": true,
     "yarn.lock": true
   },
+  "json.schemas": [
+    {
+      "fileMatch": ["*.study.json"],
+      "url": "./.vscode/case-study.schema.json"
+    }
+  ],
   "typescript.tsdk": "node_modules/typescript/lib"
 }

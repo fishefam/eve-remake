@@ -1,0 +1,68 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "properties": {
+    "heroImage": {
+      "properties": {
+        "alt": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "intro": {
+      "type": "string"
+    },
+    "logos": {
+      "items": {
+        "properties": {
+          "alt": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "pdfUrl": {
+      "type": "string"
+    },
+    "sections": {
+      "items": {
+        "properties": {
+          "paragraphs": {
+            "items": {
+              "properties": {
+                "isQuote": {
+                  "type": "boolean"
+                },
+                "text": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "subtitle": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "title": {
+      "type": "string"
+    }
+  },
+  "type": "object"
+}
