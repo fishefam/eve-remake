@@ -8,9 +8,9 @@
   "parserOptions": { "warnOnUnsupportedTypeScriptVersion": false },
   "plugins": ["unused-imports"],
   "rules": {
-    "@typescript-eslint/consistent-type-imports": "error",
+    "@typescript-eslint/consistent-type-imports": "warn",
     "@typescript-eslint/no-unused-vars": "off",
-    "tailwindcss/no-custom-classname": ["error", { "whitelist": ["ignore-eve-container", "*article"] }],
+    "tailwindcss/no-custom-classname": ["error", { "whitelist": ["ignore-eve-container", "article"] }],
     "unused-imports/no-unused-imports": "error",
     "unused-imports/no-unused-vars": [
       "error",

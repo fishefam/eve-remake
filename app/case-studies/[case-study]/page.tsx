@@ -6,10 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 import { ConditionalRender, MainContainer } from '@/components/utils'
 import { createTitle } from '@/lib/utils'
-import { minify } from 'html-minifier-terser'
-import { JSDOM } from 'jsdom'
 import { Download, Eye } from 'lucide-react'
-import { headers as getHeaders } from 'next/headers'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -93,16 +90,16 @@ export default async function Page(_: { params: { resource: string } }) {
   )
 }
 
-async function getData() {
-  const legacyPath = getHeaders().get('Legacy-Path')!
-  const response = await fetch(legacyPath)
-  const html = await response.text()
-  const { body, title } = new JSDOM(html).window.document
-  const container = body.querySelector('#main-content .et_builder_inner_content')
-  const article = container?.innerHTML ?? ''
-  const minifiedArticle = (await minify(article, { collapseWhitespace: true })).replace(
-    /(style|srcset|fetchpriority|decoding|sizes)="[^"]*"/gi,
-    '',
-  )
-  return { article: minifiedArticle, title }
-}
+// async function getData() {
+//   const legacyPath = getHeaders().get('Legacy-Path')!
+//   const response = await fetch(legacyPath)
+//   const html = await response.text()
+//   const { body, title } = new JSDOM(html).window.document
+//   const container = body.querySelector('#main-content .et_builder_inner_content')
+//   const article = container?.innerHTML ?? ''
+//   const minifiedArticle = (await minify(article, { collapseWhitespace: true })).replace(
+//     /(style|srcset|fetchpriority|decoding|sizes)="[^"]*"/gi,
+//     '',
+//   )
+//   return { article: minifiedArticle, title }
+// }
