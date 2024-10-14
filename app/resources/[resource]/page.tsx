@@ -8,8 +8,7 @@ import { headers as getHeaders } from 'next/headers'
 
 export async function generateMetadata(_: object, parent: ResolvingMetadata) {
   const metadata = await parent
-  const { title } = await getData()
-  return { description: title, title: createTitle(title, metadata) }
+  return { description: 'Article', title: createTitle('Article', metadata) }
 }
 
 export default async function Page(_: { params: { resource: string } }) {
