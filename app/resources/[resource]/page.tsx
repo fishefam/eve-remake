@@ -8,16 +8,15 @@ import { headers as getHeaders } from 'next/headers'
 
 export async function generateMetadata(_: object, parent: ResolvingMetadata) {
   const metadata = await parent
-  const { article, title } = await getData()
-  globalThis.articleContent = article
+  const { title } = await getData()
   return { description: title, title: createTitle(title, metadata) }
 }
 
 export default async function Page(_: { params: { resource: string } }) {
-  console.log(globalThis.articleContent)
+  const { article } = await getData()
   return (
     <MainContainer>
-      <article className="mapped-article" dangerouslySetInnerHTML={{ __html: '<div>WHAT HELLO</div>' }}></article>
+      <article className="mapped-article" dangerouslySetInnerHTML={{ __html: article }}></article>
     </MainContainer>
   )
 }

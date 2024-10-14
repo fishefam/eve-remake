@@ -8,7 +8,6 @@ declare global {
     interface ProcessEnv extends Partial<CustomNodeEnv> {}
   }
   type SolutionPath = 'd365-commerce' | 'e4-dynamics' | 'e4-platform'
-  var articleContent: string
 }
 
 interface CustomNodeEnv {
