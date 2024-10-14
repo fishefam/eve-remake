@@ -104,10 +104,10 @@
   .mapped-article p {
     @apply mb-6 text-lg leading-8 text-gray-700;
   }
-  .mapped-article p:last-of-type:has(a) a strong {
+  .mapped-article p:last-of-type:has(a:has(strong)) a strong {
     @apply font-medium text-white dark:text-gray-700;
   }
-  .mapped-article p:last-of-type:has(a) a {
+  .mapped-article p:last-of-type:has(a:has(strong)) a {
     @apply absolute left-1/2 inline-flex h-11 -translate-x-1/2 items-center justify-center whitespace-nowrap rounded-full bg-primary px-8 text-sm font-medium text-primary-foreground text-white no-underline ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 dark:text-gray-700;
   }
 }
