@@ -21,6 +21,7 @@ export default async function middleware(request: NextRequest) {
 function setHourHeaders({ request, response }: HelperParams) {
   const { geo } = request ?? {}
   const { latitude = '43.351330', longitude = '-79.799380' } = geo ?? {}
+  console.log(geo)
   const timezone = timezoneLookup(parseFloat(latitude), parseFloat(longitude))
   const { hour } = DateTime.now().setZone(timezone)
   response.headers.set('Hour', hour + '')
