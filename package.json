@@ -8,7 +8,8 @@
     "format": "prettier . --write",
     "lint": "eslint . --fix",
     "start": "next start",
-    "start-local": "next build && next start"
+    "startl": "next build && next start",
+    "tidy": "prettier . --write && eslint . --fix"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
@@ -47,10 +48,9 @@
     "email-validator": "^2.0.4",
     "embla-carousel-auto-scroll": "^8.3.0",
     "embla-carousel-react": "^8.3.0",
-    "eslint": "^8",
     "framer-motion": "^11.11.7",
     "input-otp": "^1.2.4",
-    "lucide-react": "^0.451.0",
+    "lucide-react": "^0.453.0",
     "next": "14.2.15",
     "next-themes": "^0.3.0",
     "react": "^18",
@@ -64,10 +64,12 @@
     "sonner": "^1.5.0",
     "tailwind-merge": "^2.5.3",
     "tailwindcss-animate": "^1.0.7",
-    "vaul": "^1.0.0",
+    "vaul": "^1.1.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.1.0",
+    "@eslint/js": "^9.12.0",
     "@types/html-minifier-terser": "^7.0.2",
     "@types/jsdom": "^21.1.7",
     "@types/luxon": "^3.4.2",
